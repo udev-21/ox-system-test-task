@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Feature;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // DB::enableQueryLog();
+    $product = Product::with('category','category.features', 'features', 'featureValues')->find(1);
+    return response()->json($product);
+    // dd(DB::getQueryLog());
 });
