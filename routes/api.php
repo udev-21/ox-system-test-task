@@ -23,19 +23,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::group([
-    'prefix' => 'auth'
-],  
-function (Illuminate\Routing\Router $router) {
-    $router->post('/refresh', [AuthController::class, 'refresh'])->middleware('auth.jwt.refresh');
-    $router->post('/login', [AuthController::class, 'login']);
-    $router->post('/register', [AuthController::class, 'register']);
-    $router->group([
-        'middleware' => 'auth.jwt'
-    ], function (Illuminate\Routing\Router $router) {
-        $router->get('/user-profile', [AuthController::class, 'userProfile']);    
-    });
-});
+Route::group(['prefix' => 'auth'],
+    function (Illuminate\Routing\Router $router) {
+        $router->post('/refresh', [AuthController::class, 'refresh'])->middleware('auth.jwt.refresh');
+        $router->post('/login', [AuthController::class, 'login']);
+        $router->post('/register', [AuthController::class, 'register']);
+        $router->group([
+            'middleware' => 'auth.jwt'
+        ], function (Illuminate\Routing\Router $router) {
+            $router->get('/user-profile', [AuthController::class, 'userProfile']);    
+        });
+    }
+);
 
 Route::get('/products', [ProductController::class, 'index'])->middleware('auth.jwt');
 Route::post('/products', [ProductController::class, 'store'])->middleware('auth.jwt');
