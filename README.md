@@ -2,6 +2,30 @@
 [Task link](https://telegra.ph/Ox-system-hiring-test-project-07-11)
 
 database scheme: https://dbdiagram.io/d/6131f4d3825b5b0146f1c5e1
+
+## Quck start
+```
+git clone https://github.com/udev-21/ox-system-test-task
+cd ox-sytem-test-task
+cp .env.example .env
+docker compose up -d
+docker compose exec backend bash
+php artisan migrate --seed
+exit
+visit http://localhost
+```
+
+login/password:
+- admin@example.com/password
+- manager@example.com/password
+- customer@example.com/password
+
+admin@example.com has all permissions
+
+manager@example.com has some permissions
+
+customer@example.com has permissions only read from category and product
+
 ## route:list
 ```
 POST      api/auth/login ........................................................ › AuthController@login
